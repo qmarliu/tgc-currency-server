@@ -125,7 +125,7 @@ void currency_plugin_impl::send_deposit_request(const currency_plugin_impl::depo
     json_t *result = NULL;
 
     json_t *request = json_object();
-    json_object_set_new(request, "method", json_string("balance.incoming"));
+    json_object_set_new(request, "method", json_string("balance.recharge"));
     json_t *params = json_array();
     json_array_append_new(params, json_integer(std::stoull(d.user_id)));
     json_array_append_new(params, json_string(d.symbol.c_str()));
