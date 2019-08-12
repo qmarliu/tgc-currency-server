@@ -3033,10 +3033,10 @@ namespace eosio {
 
       my->incoming_transaction_ack_subscription = app().get_channel<channels::transaction_ack>().subscribe(boost::bind(&net_plugin_impl::transaction_ack, my.get(), _1));
 
-      if( cc.get_read_mode() == chain::db_read_mode::READ_ONLY ) {
-         my->max_nodes_per_host = 0;
-         fc_ilog( logger, "node in read-only mode setting max_nodes_per_host to 0 to prevent connections" );
-      }
+    //   if( cc.get_read_mode() == chain::db_read_mode::READ_ONLY ) {
+    //      my->max_nodes_per_host = 0;
+    //      fc_ilog( logger, "node in read-only mode setting max_nodes_per_host to 0 to prevent connections" );
+    //   }
 
       my->start_monitors();
 
