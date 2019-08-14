@@ -82,7 +82,7 @@ struct withdraw_data {
     # 当结点检测到有用户充值或提币时，会执行一个远程调用来通知服务器或后台。可根据需要填写地址
     currency-curl-url = http://127.0.0.1:8080
 
-    # p2p网络配置
+    # p2p测试网络配置
     p2p-peer-address = 120.79.85.54:9876
 
 ## 启动提现代码currency_server_helper程序
