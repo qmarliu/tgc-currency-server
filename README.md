@@ -83,7 +83,7 @@ struct withdraw_data {
     currency-curl-url = http://127.0.0.1:8080
 
     # p2p网络配置
-    # TODO 
+    p2p-peer-address = 120.79.85.54:9876
 
 ## 启动提现代码currency_server_helper程序
 这个程序会提供提币的接口，并调用cleos与node结点和keosd钱包交互。
