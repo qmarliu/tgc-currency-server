@@ -79,7 +79,7 @@ public:
    std::vector<std::string> symbol;
    std::string deposit_user;
    std::string withdraw_user;
-   std::string token_contract;
+   std::vector<std::string> token_contract;
    std::string curl_url;
 
    struct deposit_data {
@@ -451,7 +451,10 @@ void currency_plugin_impl::_process_accepted_block( const chain::block_state_ptr
       const fc::variant &actions = trx["transaction"]["actions"];
       for (size_t j = 0; j < actions.size(); ++j) {
          const fc::variant &action = actions[j];
-         if (action["account"].as_string() == token_contract && action["name"].as_string() == "transfer") {
+         if (action["name"].as_string() == "transfer") {
+            if (std::count(token_contract.begin(), token_contract.end(), action["account"].as_string()) == 0) {
+                 continue;
+            }
             const fc::variant &data = action["data"];
             asset quantity = asset::from_string(data["quantity"].as_string());
             size_t pos;
@@ -583,7 +586,7 @@ currency_plugin::~currency_plugin()
 void currency_plugin::set_program_options(options_description& cli, options_description& cfg)
 {
    cfg.add_options()
-         ("token-contract", bpo::value<std::string>()->default_value( "eosio.token" ), "Official token contract")
+         ("token-contract", bpo::value<vector<string> >()->composing(), "Official token contract")
          ("currency-queue-size", bpo::value<uint32_t>()->default_value(1024),
          "The target queue size between nodeos and currency plugin process.")
          ("currency-symbol",  bpo::value< vector<string> >()->composing(), "Symbol")
@@ -600,7 +603,7 @@ void currency_plugin::plugin_initialize(const variables_map& options)
    try {
       ilog( "initializing currency_plugin" );
       if( options.count( "token-contract" )) {
-         my->token_contract = options.at( "token-contract" ).as<std::string>();
+         my->token_contract = options.at( "token-contract" ).as<std::vector<std::string>>();
       } else {
          wlog( "token-contract options missing" );
          return;
