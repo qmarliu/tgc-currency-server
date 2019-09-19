@@ -1,20 +1,20 @@
-#include <eosiolib/eosio.hpp>
-#include <eosiolib/asset.hpp>
-#include <eosiolib/singleton.hpp>
+#include <eosio/eosio.hpp>
+#include <eosio/asset.hpp>
+#include <eosio/singleton.hpp>
 using namespace eosio;
 
-CONTRACT kbtdeposit : public eosio::contract {
+CONTRACT deposit : public eosio::contract {
 public:
   using contract::contract;
 
-  kbtdeposit(name receiver, name code, datastream<const char *> ds)
+  deposit(name receiver, name code, datastream<const char *> ds)
       : contract(receiver, code, ds), 
         _balancesIndex(_self, _self.value), 
         _precision(_self, _self.value) {
            _userprecision = _precision.get_or_default();
         }
   
-  ~kbtdeposit() {
+  ~deposit() {
       _precision.set( _userprecision, _self );
   }
 

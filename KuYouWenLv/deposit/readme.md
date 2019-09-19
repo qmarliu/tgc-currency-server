@@ -5,7 +5,7 @@
 `cleos create account eosio deposit EVS5nifJ6sHVSai7LzUK4dQdj3W7vTzgVSnKYZJGDr1nbMfpNK1No`
 
 3. 部署合约
-`cleos set contract deposit /home/liul/Code/evs/KuYouWenLv/deposit -p deposit@active`
+`cleos set contract deposit /home/liul/Code/contract/deposit -p deposit@active`
 
 4. 插入memo
 `cleos push action deposit insert '{"memo": 1111117}' -p deposit`
@@ -17,3 +17,6 @@
 根据主键获取数据
 `cleos get table deposit deposit balances`
 `cleos get table deposit deposit precision`
+
+7. 删除数据
+`cleos push action deposit erase '{"memo": 1111117}' -p deposit`
